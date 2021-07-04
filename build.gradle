@@ -1,0 +1,36 @@
+plugins {
+    id 'io.freefair.aspectj.post-compile-weaving' version '5.3.3.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.freefair.lombok' version '5.3.3.3'
+    id 'java'
+}
+
+group = 'com.github.akazver'
+version = '1.0.0'
+
+generateLombokConfig.enabled = false
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+compileTestJava.ajc.options.aspectpath.from = sourceSets.main.output
+[compileJava, compileTestJava].each {
+    it.ajc.options.compilerArgs += ['-xmlConfigured', "${projectDir}/src/main/resources/aop.xml"]
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'io.github.hakky54:logcaptor:2.6.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}

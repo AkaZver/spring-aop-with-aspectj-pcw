@@ -1,0 +1,6 @@
+<aspectj>
+    <aspects>
+        <aspect name="com.github.akazver.poc.aop.ServiceAspect"/>
+        <aspect name="com.github.akazver.poc.aop.AnnotationAspect"/>
+    </aspects>
+</aspectj>
